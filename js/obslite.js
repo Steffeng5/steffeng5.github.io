@@ -246,7 +246,7 @@ function getProcessedData(csv) {
 
     const detectedFormat = detectFormat(body);
 
-    if (detectedFormat !== 2) {
+    if (detectedFormat !== 2 && detectedFormat !== 1) {
         console.error('track format cannot be detected or not implemented yet')
         throw new Error('track format cannot be detected or not implemented yet')
     }
