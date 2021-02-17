@@ -5,22 +5,25 @@
     <style>
         div {
             font-family: "Helvetica Neue";
-            line-height:22px;
-            font-size:15px;
-            margin:10px 0;
+            line-height: 22px;
+            font-size: 15px;
+            margin: 10px 0;
             color: #333;
         }
+
         em {
             padding: 2px 4px;
             background-color: #efefef;
             font-style: normal;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clappr/0.4.3/clappr.min.js" type="text/javascript"></script>
 </head>
 
 <body>
 
 <input type="file" id="file-selector" multiple>
+<div id="player"></div>
 
 <div id="files"></div>
 <script>
@@ -34,7 +37,7 @@
 
         const filereader = new FileReader()
 
-        filereader.onloadend = function(evt) {
+        filereader.onloadend = function (evt) {
             if (evt.target.readyState === FileReader.DONE) {
                 const uint = new Uint8Array(evt.target.result)
                 let bytes = []
@@ -50,6 +53,14 @@
                     binaryFileType: getMimetype(hex),
                     hex: hex
                 })
+
+                let url = URL.createObjectURL(file);
+                console.log(url)
+
+                let player = new Clappr.Player({
+                    source: url,
+                    mimeType: file.type,
+                    parentId: "#player"});
                 render()
             }
 
@@ -59,6 +70,9 @@
 
         const blob = file.slice(0, 4);
         filereader.readAsArrayBuffer(blob);
+
+
+
     })
 
     const render = () => {
@@ -95,7 +109,11 @@
         }
     }
 
-    function formatBytes(a,b=2){if(0===a)return"0 Bytes";const c=0>b?0:b,d=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,d)).toFixed(c))+" "+["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][d]}
+    function formatBytes(a, b = 2) {
+        if (0 === a) return "0 Bytes";
+        const c = 0 > b ? 0 : b, d = Math.floor(Math.log(a) / Math.log(1024));
+        return parseFloat((a / Math.pow(1024, d)).toFixed(c)) + " " + ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][d]
+    }
 
 
 </script>
