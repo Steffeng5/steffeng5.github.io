@@ -43,6 +43,7 @@ function createMap(pointArray) {
 
 
                 if (dataPoint.confirmed) {
+                    console.log(dataPoint);
                     if (dataPoint.left) {
                         trackPointsLeft.push(
                             new ol.Feature({
