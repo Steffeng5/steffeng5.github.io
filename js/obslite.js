@@ -42,43 +42,37 @@ function createMap(pointArray) {
                 points.push(p);
 
 
-                if (dataPoint.confirmed) {
-                    console.log(dataPoint);
-                    if (dataPoint.left) {
+                if (dataPoint.confirmed > 0) {
                         trackPointsLeft.push(
                             new ol.Feature({
-                                distance: dataPoint.left,
+                                distance: dataPoint.left ? dataPoint.left : 999,
                                 geometry: new ol.geom.Point(p)
                             })
                         )
-                    }
+                    
 
-                    if (dataPoint.right != undefined) {
                         trackPointsRight.push(
                             new ol.Feature({
-                                distance: dataPoint.right,
+                                distance: dataPoint.right ? dataPoint.right : 999,
                                 geometry: new ol.geom.Point(p)
                             })
                         );
-                    }
+                   
                 } else {
-                    if (dataPoint.left != undefined) {
                         trackPointsUntaggedLeft.push(
                             new ol.Feature({
-                                distance: dataPoint.left,
+                                distance: dataPoint.left ? dataPoint.left : 999,
                                 geometry: new ol.geom.Point(p)
                             })
                         )
-                    }
-
-                    if (dataPoint.right != undefined) {
+                   
                         trackPointsUntaggedRight.push(
                             new ol.Feature({
-                                distance: dataPoint.right,
+                                distance: dataPoint.right ? dataPoint.right : 999,
                                 geometry: new ol.geom.Point(p)
                             })
                         );
-                    }
+                 
                 }
             }
         }
